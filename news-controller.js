@@ -43,7 +43,8 @@ function printNews(news) {
 
   // <img src="..." class="card-img-top" alt="..." />
   const img = document.createElement("img");
-  img.src = news.image;
+  img.src = news.image ? news.image : "./assets/images/default-null.png";
+
   img.className = "card-img-top";
   cardDiv.appendChild(img);
 
@@ -63,9 +64,10 @@ function printNews(news) {
   cardBody.appendChild(p);
 
   const aTag = document.createElement("a");
-  aTag.href = news.url;
+  aTag.href = news.url ? news.url : "#"; // Fallback to "#" if URL is null
   aTag.className = "btn btn-primary";
   aTag.innerText = "Read More";
+  aTag.target = "_blank"; // Optional: open in new tab
   cardBody.appendChild(aTag);
 
   newsId.appendChild(colDiv);
