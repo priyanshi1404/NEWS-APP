@@ -27,3 +27,15 @@ A simple yet powerful **News App** built with **HTML and JavaScript** that fetch
 2. Data fetched from the API is dynamically rendered into a card format on the home page.
 3. Each card contains a "Read More" button, which redirects users to the full news article on the original source website.
 
+---
+
+## 🚀 Live Demo
+
+👉 [Click here to visit the live website](https://newsapp-y0qr.onrender.com/)
+
+---
+
+## 📸 Preview
+
+![NEWS APP Preview](preview.png)
+
