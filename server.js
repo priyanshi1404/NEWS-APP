@@ -2,19 +2,14 @@ import express from "express";
 import fetch from "node-fetch";
 import cors from "cors";
 import path from "path";
-import { fileURLToPath } from "url";
 
 const app = express();
 app.use(cors());
 
-// Fix __dirname in ES modules
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+// ✅ serve frontend build
+const __dirname = path.resolve();
+app.use(express.static(path.join(__dirname, "build"))); // or "public" if you use plain HTML
 
-// Serve static files (index.html, css, js, etc.)
-app.use(express.static(__dirname));
-
-// API route
 app.get("/news", async (req, res) => {
   try {
     const response = await fetch(
@@ -27,9 +22,9 @@ app.get("/news", async (req, res) => {
   }
 });
 
-// Root route → return index.html
-app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "index.html"));
+// ✅ catch-all to serve frontend index.html
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "build", "index.html")); 
 });
 
 const PORT = process.env.PORT || 5000;
