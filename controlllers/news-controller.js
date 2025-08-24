@@ -82,12 +82,17 @@ async function loadNews() {
    const res = await fetch("/news");
     const data = await res.json();
 
-    newsContainer.innerHTML = data.articles
-      .map(
-        (article) => `
+     newsContainer.innerHTML = data.articles
+      .map((article) => {
+        // fallback image if urlToImage is null/undefined
+        const imageUrl = article.urlToImage
+          ? article.urlToImage
+          : "assets/images/default-null.png"; 
+
+        return `
           <div class="col-md-4 mb-3">
             <div class="card">
-              <img src="${article.urlToImage}" class="card-img-top" alt="news image"/>
+              <img src="${imageUrl}" class="card-img-top" alt="news image"/>
               <div class="card-body">
                 <h5 class="card-title">${article.title}</h5>
                 <p class="card-text">${article.description || ""}</p>
@@ -95,8 +100,8 @@ async function loadNews() {
               </div>
             </div>
           </div>
-        `
-      )
+        `;
+      })
       .join("");
   } catch (err) {
     newsContainer.innerHTML = `<p class="text-danger">Failed to load news.</p>`;
@@ -104,4 +109,27 @@ async function loadNews() {
 }
 
 loadNews();
+
+//     newsContainer.innerHTML = data.articles
+//       .map(
+//         (article) => `
+//           <div class="col-md-4 mb-3">
+//             <div class="card">
+//               <img src="${article.urlToImage}" class="card-img-top" alt="news image"/>
+//               <div class="card-body">
+//                 <h5 class="card-title">${article.title}</h5>
+//                 <p class="card-text">${article.description || ""}</p>
+//                 <a href="${article.url}" target="_blank" class="btn btn-primary">Read more</a>
+//               </div>
+//             </div>
+//           </div>
+//         `
+//       )
+//       .join("");
+//   } catch (err) {
+//     newsContainer.innerHTML = `<p class="text-danger">Failed to load news.</p>`;
+//   }
+// }
+
+// loadNews();
 
