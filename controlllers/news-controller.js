@@ -79,7 +79,7 @@ const newsContainer = document.getElementById("news");
 
 async function loadNews() {
   try {
-    const res = await fetch("https://your-app.onrender.com/news");
+   const res = await fetch("/news");
     const data = await res.json();
 
     newsContainer.innerHTML = data.articles
